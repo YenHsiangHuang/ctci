@@ -1,2 +1,2 @@
 # ctci
-Cracking the Coding Interview
+My solutions to Cracking the Coding Interview 6th. All are written in c++.
