@@ -1,3 +1,5 @@
+// Similar to LC #257
+
 #include <iostream>
 #include <queue>
 #include <unordered_set>
@@ -5,31 +7,7 @@
 
 using namespace std;
 
-// Overload the "Graph::search" function
-bool Graph::search(string a, string b) {
-    // Breath-first search from a to b
-    Node* A = getNode(a);
-    Node* B = getNode(b);
-
-    queue<Node*> toVisit;
-    unordered_set<Node*> visited;
-    toVisit.push(A);
-
-    while (!toVisit.empty()) {
-        Node* curr = toVisit.front();
-        toVisit.pop();
-        if (curr == B) return true;
-
-        if (visited.count(curr) == 0) {
-            visited.insert(curr);
-            for (auto &it : curr->children) {
-                toVisit.push(it);
-            }
-        }
-    }
-
-    return false;
-}
+// Search function implemented in graph.cc
 
 int main()
 {
