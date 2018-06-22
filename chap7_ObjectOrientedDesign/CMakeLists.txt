@@ -5,3 +5,5 @@ foreach(oneSourceFile ${sourceFiles})
     string(REPLACE ".cc" "" execName ${oneSourceFile})
     add_executable(${execName} ${oneSourceFile})
 endforeach(oneSourceFile ${sourceFiles})
+
+target_link_libraries(7.1_DeckOfCards deckofcards)

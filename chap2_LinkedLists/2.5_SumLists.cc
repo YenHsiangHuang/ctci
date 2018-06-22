@@ -1,16 +1,16 @@
-#include <iostream>
 #include <stdlib.h>
 #include <time.h>
+#include <iostream>
 #include <vector>
 #include "singlylinkedlist.h"
 
 Node* initList(int n) {
     if (n == 0) return nullptr;
     srand(time(NULL));
-    Node* head = new Node(rand()%100);
+    Node* head = new Node(rand() % 100);
     Node* node = head;
     for (int i = 1; i < n; i++) {
-        node->next = new Node(rand()%100);
+        node->next = new Node(rand() % 100);
         node = node->next;
     }
 
@@ -46,8 +46,8 @@ Node* addLists(Node* list1, Node* list2) {
         int val1 = (list1 == nullptr) ? 0 : list1->data;
         int val2 = (list2 == nullptr) ? 0 : list2->data;
         int sum = val1 + val2 + carrier;
-        carrier = sum/10;
-        node->next = new Node(sum - 10*carrier);
+        carrier = sum / 10;
+        node->next = new Node(sum - 10 * carrier);
 
         list1 = (list1 == nullptr) ? nullptr : list1->next;
         list2 = (list2 == nullptr) ? nullptr : list2->next;
@@ -60,8 +60,7 @@ Node* addLists(Node* list1, Node* list2) {
     return dummyHead->next;
 }
 
-int main()
-{
+int main() {
     std::vector<int> arr1 = {1, 9, 9, 9, 9}, arr2 = {1, 3, 2};
     Node* list1 = initList(arr1);
     Node* list2 = initList(arr2);

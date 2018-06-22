@@ -1,16 +1,16 @@
-#include <iostream>
 #include <stdlib.h>
 #include <time.h>
+#include <iostream>
 #include <vector>
 #include "singlylinkedlist.h"
 
 Node* initList(int n) {
     if (n == 0) return nullptr;
     srand(time(NULL));
-    Node* head = new Node(rand()%100);
+    Node* head = new Node(rand() % 100);
     Node* node = head;
     for (int i = 1; i < n; i++) {
-        node->next = new Node(rand()%100);
+        node->next = new Node(rand() % 100);
         node = node->next;
     }
 
@@ -34,9 +34,8 @@ void printList(Node* head) {
     printf("\n");
 }
 
-int main()
-{
-    //std::vector<int> arr = {1, 4, 4, 1, 1, 4, 2, 1, 3, 4};
+int main() {
+    // std::vector<int> arr = {1, 4, 4, 1, 1, 4, 2, 1, 3, 4};
     Node* head = initList(20);
     printList(head);
 

@@ -1,17 +1,17 @@
-#include <iostream>
 #include <stdlib.h>
 #include <time.h>
-#include <vector>
+#include <iostream>
 #include <stack>
+#include <vector>
 #include "singlylinkedlist.h"
 
 Node* initList(int n = 0) {
     if (n == 0) return nullptr;
     srand(time(NULL));
-    Node* head = new Node(rand()%100);
+    Node* head = new Node(rand() % 100);
     Node* node = head;
     for (int i = 1; i < n; i++) {
-        node->next = new Node(rand()%100);
+        node->next = new Node(rand() % 100);
         node = node->next;
     }
 
@@ -63,10 +63,8 @@ bool isPalindrome(Node* head) {
     return true;
 }
 
-
-int main()
-{
-    std::vector<int> arr = {0,3};
+int main() {
+    std::vector<int> arr = {0, 3};
     Node* slist = initList(arr);
     printList(slist);
     std::cout << isPalindrome(slist);

@@ -1,15 +1,15 @@
-#include <iostream>
-#include <vector>
-#include <stack>
 #include <stdlib.h>
 #include <time.h>
+#include <iostream>
+#include <stack>
+#include <vector>
 
 using namespace std;
 
 template <class T>
-class SetOfStacks
-{
-public:
+class SetOfStacks {
+   public:
+   public:
     void push(T item);
     void pop();
     void popAt(int idx);  // perform pop at specific stack
@@ -20,7 +20,7 @@ public:
     bool empty();
     size_t size();
 
-private:
+   private:
     const int MAX_STACK_SIZE = 10;
     vector<stack<T>> setOfStacks;
     void createNewStack(T item);
@@ -52,7 +52,7 @@ void SetOfStacks<T>::popAt(int idx) {
     if (idx < 0 || idx >= setOfStacks.size()) return;
     stack<T>* stk = &setOfStacks.at(idx);
     (*stk).pop();
-    if ((*stk).empty()) setOfStacks.erase(setOfStacks.begin()+idx);
+    if ((*stk).empty()) setOfStacks.erase(setOfStacks.begin() + idx);
 }
 
 template <class T>
@@ -73,7 +73,7 @@ bool SetOfStacks<T>::empty() {
 template <class T>
 size_t SetOfStacks<T>::size() {
     size_t sum = 0;
-    for (auto &it : setOfStacks) {
+    for (auto& it : setOfStacks) {
         sum += it.size();
     }
     return sum;
@@ -103,14 +103,11 @@ void printStack(SetOfStacks<int> stk) {
     cout << endl;
 }
 
-
-int main()
-{
+int main() {
     SetOfStacks<int> stk = initStack();
     cout << stk.topAt(0) << endl;
     stk.popAt(0);
     cout << stk.topAt(0);
-
 
     return 0;
 }
