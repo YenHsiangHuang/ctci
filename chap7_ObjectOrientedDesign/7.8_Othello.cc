@@ -45,6 +45,8 @@ class Board {
     bool flip(const char* pos);
     bool flip(int index);
     bool eat(const char* pos, char color);
+    void updateScore();
+    void updateScore(int plusScore);
 
     inline void raySpread(int index[]);  // Helper
 
@@ -58,31 +60,30 @@ Board::Board() {
     // Init pattern to white spaces with four initial disks
     for (int i = 0; i < 64; i++) pattern[i] = ' ';
 
-    // setDisk("d4", 'w');
-    // setDisk("e5", 'w');
-    // setDisk("e4", 'b');
-    // setDisk("d5", 'b');
-
-    setDisk("d2", 'w');
-    setDisk("e2", 'w');
-    setDisk("f2", 'w');
-    setDisk("d3", 'w');
-    setDisk("e3", 'b');
-    setDisk("f3", 'w');
-    setDisk("c4", 'w');
     setDisk("d4", 'w');
-    setDisk("e4", 'w');
-    setDisk("f4", 'w');
-    setDisk("c5", 'w');
-    setDisk("f5", 'w');
-    setDisk("c6", 'w');
-    setDisk("d6", 'w');
-    setDisk("e6", 'w');
-    setDisk("f6", 'w');
+    setDisk("e5", 'w');
+    setDisk("e4", 'b');
     setDisk("d5", 'b');
 
-    whiteScore = 15;
-    blackScore = 2;
+    //setDisk("d2", 'w');
+    //setDisk("e2", 'w');
+    //setDisk("f2", 'w');
+    //setDisk("d3", 'w');
+    //setDisk("e3", 'b');
+    //setDisk("f3", 'w');
+    //setDisk("c4", 'w');
+    //setDisk("d4", 'w');
+    //setDisk("e4", 'w');
+    //setDisk("f4", 'w');
+    //setDisk("c5", 'w');
+    //setDisk("f5", 'w');
+    //setDisk("c6", 'w');
+    //setDisk("d6", 'w');
+    //setDisk("e6", 'w');
+    //setDisk("f6", 'w');
+    //setDisk("d5", 'b');
+
+    updateScore();
 }
 
 void Board::printBoard(Mode mode) {
@@ -308,13 +309,10 @@ bool Board::eat(const char* pos, char color) {
                     } else {
                         isValidStep = true;
                         for (auto& it : toFlip[i]) flip(it);
-                        if (color == 'w') {
-                            whiteScore += toFlip[i].size();
-                            blackScore -= toFlip[i].size();
-                        } else {
-                            whiteScore -= toFlip[i].size();
-                            blackScore += toFlip[i].size();
-                        }
+                        if (color == 'w')
+                            updateScore(toFlip[i].size());
+                        else
+                            updateScore(-toFlip[i].size());
                         done[i] = true;
                         toFlip[i].clear();
                     }
@@ -329,6 +327,23 @@ bool Board::eat(const char* pos, char color) {
     }
 
     return isValidStep;
+}
+
+void Board::updateScore() {
+    whiteScore = 0;
+    blackScore = 0;
+    for (int i = 0; i < 64; i++) {
+        if (disk[i].color == 'n') continue;
+        if (disk[i].color == 'w')
+            whiteScore++;
+        else
+            blackScore++;
+    }
+}
+
+void Board::updateScore(int plusScore) {
+    whiteScore += plusScore;
+    blackScore -= plusScore;
 }
 
 inline void Board::raySpread(int index[]) {
@@ -371,19 +386,6 @@ void Board::terminate() {
 
 bool Board::Disk::empty() { return color == 'n'; }
 
-/**
-                   A    B
-    printUTF_8(L"+    +    +    +    +    +    +    +");
-    printUTF_8(L"  ◎    ◉   ");
-    printUTF_8(L"+    +    +");
-    printUTF_8(L"  ◎    ◉   ");
-    printUTF_8(L"+    +    +");
-
-    wchar_t wstr[] = L"+    +    +\n  ◎    ◉   ";
-    setlocale(LC_ALL, "zh_TW.UTF-8");
-    wprintf(L"%ls\n", wstr);
-*/
-
 int main() {
     Board game;
     bool run = true, switchPlayer;
@@ -393,6 +395,7 @@ int main() {
         game.printBoard(UTF8);
         std::cout << "Player " << color << ": ";
         std::cin >> pos;
+        if (pos[0] == 'q') break;
         switchPlayer = game.placeDisk(pos, color);
         game.printBoard(UTF8);
 
