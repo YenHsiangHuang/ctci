@@ -1,8 +1,4 @@
-/**
-   A child is running up a staircase with n steps and can hop either 1 setp, 2
-   steps, or 3 steps at a time. Implement a method to count how many possible
-   ways the child can run up the stairs.
- */
+// LC #70
 #include <iostream>
 #include <vector>
 #include "timer.h"
@@ -49,15 +45,33 @@ int countWayBottomUp(int n) {
     return memo[n];
 }
 
+// Bottom-up without extra space
+int countWayBottomUpNoExtraSpace(int n) {
+    if (n < 3) return n;
+    if (n == 3) return 4;
+
+    int tmp0, tmp1 = 1, tmp2 = 2, tmp3 = 4;
+
+    for (int i = 4; i <= n; i++) {
+        tmp0 = tmp1 + tmp2 + tmp3;
+        tmp1 = tmp2;
+        tmp2 = tmp3;
+        tmp3 = tmp0;
+    }
+    return tmp0;
+}
+
 int main(int argc, const char* argv[]) {
-    int testCase = 8;
-    tic();
+    tic(us);
     std::cout << countWayRecursive(20) << std::endl;
     toc();
-    tic();
+    tic(us);
     std::cout << countWayMemoi(20) << std::endl;
     toc();
-    tic();
+    tic(us);
     std::cout << countWayBottomUp(20) << std::endl;
+    toc();
+    tic(us);
+    std::cout << countWayBottomUpNoExtraSpace(20) << std::endl;
     toc();
 }
