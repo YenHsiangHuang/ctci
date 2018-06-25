@@ -7,4 +7,5 @@ foreach(oneSourceFile ${sourceFiles})
 endforeach(oneSourceFile ${sourceFiles})
 
 target_link_libraries(8.1_TripleStep timer)
+target_link_libraries(8.4_PowerSet mathematical)
 target_link_libraries(timerSample timer)
