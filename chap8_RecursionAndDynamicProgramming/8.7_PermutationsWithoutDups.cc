@@ -1,47 +1,36 @@
 // LC #46
 #include <string>
 #include <vector>
-#include "mathematical.h"
 #include "printer.h"
 
+//#define RUN_CTCI
+#define RUN_LC
+
+#ifdef RUN_CTCI
 // CtCI: permutations of a string without dup
-std::vector<std::string> permute(std::string& strs) {
-    std::vector<std::string> res(3, "abc");
-    return res;
-}
-
-// LC #46: permutations of distinct integers
-/*
-std::vector<std::vector<int>> permute(std::vector<int>& nums) {
-    if (nums.empty()) return std::vector<std::vector<int>>();
-
-    std::vector<std::vector<int>> res(1, std::vector<int>(1, nums.front()));
-    auto facSeries = factorialSeries(nums.size());
-
-    res.reserve(facSeries.back());
-
-    // For every new elem
-    for (int i = 1; i < nums.size(); ++i) {
-        // For each vector in res
-        unsigned nVec = res.size();
-        unsigned vecIdx = facSeries[i];
-        size_t insertEnd = res[0].size();
-        for (int j = 0; j < nVec; ++j) {
-            // For each position in a vector
-            for (unsigned insertPos = 0; insertPos < insertEnd; ++insertPos) {
-                res.push_back(res[j]);
-                res[vecIdx].insert(res[vecIdx].begin()+insertPos, nums[i]);
-                ++vecIdx;
-            }
-            res[j].push_back(nums[i]);
-        }
+void permute(std::string& strs, int begin, std::vector<std::string>& res) {
+    if (begin >= strs.length()) {
+        res.push_back(strs);
+        return;
     }
+    for (int i = begin; i < strs.length(); ++i) {
+        std::swap(strs[begin], strs[i]);
+        permute(strs, begin + 1, res);
+        std::swap(strs[begin], strs[i]);
+    }
+}
 
+std::vector<std::string> permute(std::string& strs) {
+    std::vector<std::string> res;
+    permute(strs, 0, res);
     return res;
 }
-*/
+#endif  // RUN_CTCI
 
-void permute(std::vector<int>& nums, int begin, std::vector<std::vector<int>>& res) {
+#ifdef RUN_LC
+// LC #46: permutations of distinct integers
+void permute(std::vector<int>& nums, int begin,
+             std::vector<std::vector<int>>& res) {
     if (begin >= nums.size()) {
         res.push_back(nums);
         return;
@@ -58,13 +47,19 @@ std::vector<std::vector<int>> permute(std::vector<int>& nums) {
     permute(nums, 0, res);
     return res;
 }
+#endif  // RUN_LC
 
 int main(int argc, const char* argv[]) {
-    std::vector<int> test = {1,2,3,4};
+#ifdef RUN_CTCI
+    std::string testStr("abcd");
+    std::cout << "[" << testStr << "]" << std::endl;
+    printVec(permute(testStr));
+#endif  // RUN_CTCI
+
+#ifdef RUN_LC
+    std::vector<int> test = {1, 2, 3};
     printVec(test);
     printVec2(permute(test));
-
-    //std::string testStr("abc");
-    //printVec(permute(testStr));
+#endif  // RUN_LC
     return 0;
 }
