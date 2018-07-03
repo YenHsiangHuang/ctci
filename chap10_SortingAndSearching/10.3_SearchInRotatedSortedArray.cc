@@ -32,6 +32,7 @@ int search(std::vector<int>& nums, int target) {
 
 int main(int argc, const char* argv[]) {
     std::vector<int> test = {4,5,6,7,8,1,2,3};
+    std::vector<int> test = {1,2,3,4,5,6,7,8};
     int target = 1;
     std::cout << search(test, target) << std::endl;
     return 0;
