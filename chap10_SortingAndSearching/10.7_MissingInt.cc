@@ -5,18 +5,26 @@
 #include <vector>
 #include <climits>
 #include <bitset>
+#include "printer.h"
 
 int firstMissingPositive(std::vector<int>& nums) {
-    std::bitset<32767> bit;
-    for (auto& n : nums) {
-        if (n > 0) bit[n-1] = 1;
+    printVec(nums);
+    int i = 0;
+    int n = nums.size();
+
+    while (i < n) {
+        if (nums[i] > 0 && nums[i] <= n && nums[nums[i] - 1] != nums[i]) {
+            std::swap(nums[i], nums[nums[i]-1]);
+            printVec(nums);
+        }
+        else
+            ++i;
     }
 
-    int res = 0;
-    while (bit.test(res)) ++res;
-    return res + 1;
-}
+    for (i = 0; i < n; ++i) if (nums[i] != i + 1) return i + 1;
 
+    return n + 1;
+}
 
 int main(int argc, const char *argv[])
 {

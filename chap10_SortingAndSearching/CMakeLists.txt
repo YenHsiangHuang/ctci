@@ -8,3 +8,4 @@ endforeach(oneSourceFile ${sourceFiles})
 
 target_link_libraries(10.1_SortedMerge singlylinkedlist printer)
 target_link_libraries(10.2_GroupAnagrams printer)
+target_link_libraries(10.7_MissingInt printer)
