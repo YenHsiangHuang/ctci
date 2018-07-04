@@ -8,8 +8,9 @@ int search(std::vector<int>& nums, int target) {
     if (nums[tail] == target) return tail;
     int guess = (head + tail) / 2, lastGuess;
 
-    lastGuess = head;
-    while (nums[guess] != target && std::abs(lastGuess - guess) > 0) {
+    lastGuess = tail;
+    while (std::abs(lastGuess - guess) > 0) {
+        if (nums[guess] == target) return guess;
         if (nums[guess] > nums[head]) {  // On the left side
             if (nums[guess] > target && target >= nums[head]) {
                 tail = guess;
@@ -27,12 +28,12 @@ int search(std::vector<int>& nums, int target) {
         guess = (head + tail) / 2;
     }
 
-    return (nums[guess] == target) ? guess : -1 ;
+    return -1;
 }
 
 int main(int argc, const char* argv[]) {
-    std::vector<int> test = {4,5,6,7,8,1,2,3};
-    std::vector<int> test = {1,2,3,4,5,6,7,8};
+    std::vector<int> test = {4, 5, 6, 7, 8, 1, 2, 3};
+    //std::vector<int> test = {1, 2, 3, 4, 5, 6, 7, 8};
     int target = 1;
     std::cout << search(test, target) << std::endl;
     return 0;
