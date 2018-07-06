@@ -3,7 +3,6 @@
 #include <iostream>
 #include <queue>
 
-
 // Elegant solution on LC
 class MedianFinderLC {
    public:
@@ -32,8 +31,7 @@ class MedianFinderLC {
 class MedianFinder {
    public:
     /** initialize your data structure here. */
-    MedianFinder() {
-    }
+    MedianFinder() {}
 
     void addNum(int num) {
         smallQ.emplace(num);
@@ -58,14 +56,12 @@ class MedianFinder {
     }
 
    private:
-    std::priority_queue<int>
-        smallQ;  // Largest on top
+    std::priority_queue<int> smallQ;  // Largest on top
     std::priority_queue<int, std::vector<int>, std::greater<int>>
         largeQ;  // Smallest on top
 };
 
-int main(int argc, const char *argv[])
-{
+int main(int argc, const char *argv[]) {
     MedianFinder mf;
     mf.addNum(1);
     mf.addNum(2);
