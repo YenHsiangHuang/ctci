@@ -1,14 +1,27 @@
-// LC #280 Wiggled Sort (Locked)
-// LC #324 Wiggled Sort II
+// LC #280 Wiggled Sort (Locked) & #324 Wiggled Sort II
 #include <stdlib.h>
 #include <time.h>
 #include <algorithm>
-#include <cmath>
 #include <vector>
 #include "printer.h"
 
+enum Mode { One, Two, Three };
+
+/**
+   Wiggle Sort, O(nlogn) time
+   Sort the array first and then do pairwise swap, starting from the third
+   element.
+ */
+void wiggleSortNlogN(std::vector<int>& nums) {
+    std::sort(nums.begin(), nums.end());
+    for (int i = 2; i < nums.size(); i += 2) std::swap(nums[i - 1], nums[i]);
+}
+
+/**
+   Wiggle Sort, O(n) time
+   Go through each element and make sure it's valid.
+ */
 void wiggleSortN(std::vector<int>& nums) {
-    // O(N)
     for (int i = 1; i < nums.size(); ++i) {
         if ( (i & 1) && nums[i] >= nums[i - 1]) continue;
         if (!(i & 1) && nums[i] <= nums[i - 1]) continue;
@@ -16,47 +29,74 @@ void wiggleSortN(std::vector<int>& nums) {
     }
 }
 
-// valley - peak - valley - peak ...
-void wiggleSortNlogN(std::vector<int>& nums) {
-    // O(NlogN)
-    std::sort(nums.begin(), nums.end());
-    for (int i = 2; i < nums.size(); i += 2) std::swap(nums[i - 1], nums[i]);
+// Modified from LC #75 Sort Color
+void sortColors(std::vector<int>& nums) {
+    int n = nums.size();
+    int lb = 0, ub = n - 1;
+    int i = lb, mid = nums[n / 2];
+
+#define A(i) nums[(1 + 2 * (i)) % (n | 1)]  // Index mapping
+
+    while (i <= ub) {
+        if (A(i) > mid) {
+            std::swap(A(lb++), A(i++));
+        } else if (A(i) < mid) {
+            std::swap(A(ub--), A(i));
+        } else {
+            ++i;
+        }
+    }
 }
 
+/**
+   Wiggle Sort II, O(n) time
+   First find out the nth largest element and put it at nth position using
+   std::nth_element. Second apply color sorting with index mapping.
+
+   Index mapping:
+   The index 0 1 2 3 4 5 will be mapped to 1 3 5 0 2 4 by index mapping. Color
+   sort meant to put same elements together. But in here we want to put all
+   elements larger than a specific value in odd index, and the others in even
+   index. So we apply index mapping and do color sort to mapped array.
+ */
 void wiggleSortII(std::vector<int>& nums) {
-    // Background: findKthLargestNumber (nth_element in c++), sort color
+    std::nth_element(nums.begin(), nums.begin() + (nums.size() / 2),
+                     nums.end());
+    sortColors(nums);
 }
 
+// Generate random test case with length n
 std::vector<int> genTest(int n) {
     std::vector<int> test(n);
-    for (int i = 0; i < n; ++i) test[i] = rand()%10;
+    for (int i = 0; i < n; ++i) test[i] = rand() % 10;
     return test;
 }
 
-int main(int argc, const char *argv[])
-{
-    srand(time(nullptr));
-    std::vector<int> test1 = {1, 5, 1, 1, 6, 4};
-    std::vector<int> test2 = {1, 3, 2, 2, 3, 1};
+void runTest(int n, Mode mode) {
     std::vector<int> nums;
-
-    nums = genTest(6);
+    nums = genTest(n);
     printVec(nums);
-    wiggleSortII(nums);
+    switch (mode) {
+        case One:
+            wiggleSortN(nums);
+            break;
+        case Two:
+            wiggleSortNlogN(nums);
+            break;
+        case Three:
+            wiggleSortII(nums);
+            break;
+    }
     std::cout << "    ";
     printVec(nums);
+}
 
-    nums = genTest(7);
-    printVec(nums);
-    wiggleSortII(nums);
-    std::cout << "    ";
-    printVec(nums);
+int main(int argc, const char* argv[]) {
+    srand(time(nullptr));
 
-    nums = genTest(8);
-    printVec(nums);
-    wiggleSortII(nums);
-    std::cout << "    ";
-    printVec(nums);
+    runTest(6, Three);
+    runTest(7, Three);
+    runTest(8, Three);
 
     return 0;
 }
