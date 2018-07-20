@@ -5,7 +5,6 @@ bool isPowerOf2(int n) {
     return (n & (n-1)) == 0;
 }
 
-int main()
-{
+int main() {
     printf("It checks whether n is the power of 2.\n");
 }
