@@ -23,11 +23,10 @@ int uniquePathsWithObstacles(std::vector<std::vector<int>>& obstacleGrid) {
         }
     }
 
-    return numPath[j-1];
+    return numPath[j - 1];
 }
 
-int main(int argc, const char *argv[])
-{
+int main(int argc, const char* argv[]) {
     int m = 8, n = 5;
     std::vector<std::vector<int>> obstacleGrid(m, std::vector<int>(n));
     obstacleGrid[2][3] = 1;
