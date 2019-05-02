@@ -2,8 +2,8 @@
 // LC #21 (List)
 #include <iostream>
 #include <vector>
-#include "printer.h"
-#include "singlylinkedlist.h"
+#include "printer.hpp"
+#include "singlylinkedlist.hpp"
 
 Node* mergeTwoLists(Node* l1, Node* l2) {
     Node* dummyHead = new Node();

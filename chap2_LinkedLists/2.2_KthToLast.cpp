@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <vector>
-#include "singlylinkedlist.h"
+#include "singlylinkedlist.hpp"
 
 Node* initList() {
     srand(time(NULL));
@@ -33,19 +33,31 @@ void printList(Node* head) {
     printf("\n");
 }
 
+// k = 0, return last itself
+// k > size of list, return full list
+Node* findKthToLast (Node* head, int k) {
+    if (head == nullptr) return head;
+
+    Node *nd1 = head, *nd2 = head;
+    while (k != 0) {
+        nd2 = nd2->next;
+        if (nd2 == nullptr) return head;
+        k--;
+    }
+
+    while (nd2->next != nullptr) {
+        nd1 = nd1->next;
+        nd2 = nd2->next;
+    }
+    return nd1;
+}
 
 int main()
 {
-    //std::vector<int> arr = {0, 4, 4, 1, 0, 4, 2, 0, 3, 4};
-    //Node* head = initList(arr);
-    Node* head = initList();
-
-    printList(head);
-    head = head->remove(head, 2);
-    printList(head);
-    //head->removeDup(head);
-    head->removeDupInPlace(head);
+    std::vector<int> arr = {0, 4, 4, 1, 0, 4, 2, 0, 3, 4};
+    Node* head = initList(arr);
     printList(head);
 
-    return 0;
+    head = findKthToLast(head, 20);
+    printList(head);
 }

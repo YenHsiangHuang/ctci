@@ -1,7 +1,11 @@
-// LC #70
+/**
+   A child is running up a staircase with n steps and can hop either 1 setp, 2
+   steps, or 3 steps at a time. Implement a method to count how many possible
+   ways the child can run up the stairs.
+ */
 #include <iostream>
 #include <vector>
-#include "timer.h"
+#include "timer.hpp"
 
 // Recursive solution
 int countWayRecursive(int n) {
@@ -13,24 +17,6 @@ int countWayRecursive(int n) {
     return countWayRecursive(n - 1) +
            countWayRecursive(n - 2) +
            countWayRecursive(n - 3);
-}
-
-
-// Memoization solution
-int countWayMemoi(int n, std::vector<int>& memo) {
-    if (memo[n] != 0) return memo[n];
-
-    memo[n] = countWayMemoi(n-1, memo) +
-              countWayMemoi(n-2, memo) +
-              countWayMemoi(n-3, memo);
-    return memo[n];
-}
-
-int countWayMemoi(int n) {
-    std::vector<int> memo = {0, 1, 2, 4};
-    if (n < 4) return memo[n];
-    memo.resize(n + 1);
-    return countWayMemoi(n, memo);
 }
 
 // Bottom-up solution
@@ -47,10 +33,14 @@ int countWayBottomUp(int n) {
 
 // Bottom-up without extra space
 int countWayBottomUpNoExtraSpace(int n) {
-    if (n < 3) return n;
-    if (n == 3) return 4;
 
-    int tmp0, tmp1 = 1, tmp2 = 2, tmp3 = 4;
+    Timer t("You can also try this.");  // millisecond
+
+    int tmp0 = 0, tmp1 = 1, tmp2 = 2, tmp3 = 4;
+    if (n <= 0) return tmp0;
+    if (n == 1) return tmp1;
+    if (n == 2) return tmp2;
+    if (n == 3) return tmp3;
 
     for (int i = 4; i <= n; i++) {
         tmp0 = tmp1 + tmp2 + tmp3;
@@ -61,17 +51,22 @@ int countWayBottomUpNoExtraSpace(int n) {
     return tmp0;
 }
 
+/**
+   tic(Mode, Message)
+       Mode: ms(default), us, ns
+ */
+
 int main(int argc, const char* argv[]) {
-    tic(us);
-    std::cout << countWayRecursive(20) << std::endl;
+
+    tic("Recursive takes forever..");
+    countWayRecursive(35);
     toc();
+
     tic(us);
-    std::cout << countWayMemoi(20) << std::endl;
+    countWayBottomUp(35);
     toc();
-    tic(us);
-    std::cout << countWayBottomUp(20) << std::endl;
-    toc();
-    tic(us);
-    std::cout << countWayBottomUpNoExtraSpace(20) << std::endl;
+
+    tic(us, "BottomUpNoExtraSpace is insane!");
+    countWayBottomUpNoExtraSpace(35);
     toc();
 }

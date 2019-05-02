@@ -4,8 +4,8 @@
 #include <map>
 #include <vector>
 #include <utility>
-#include "printer.h"
-#include "timer.h"
+#include "printer.hpp"
+#include "timer.hpp"
 
 // DP solution, this is insane......
 int changeDP(int amount, std::vector<int>& coins) {

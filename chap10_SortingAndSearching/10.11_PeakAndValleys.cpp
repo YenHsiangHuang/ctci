@@ -3,7 +3,7 @@
 #include <time.h>
 #include <algorithm>
 #include <vector>
-#include "printer.h"
+#include "printer.hpp"
 
 enum Mode { One, Two, Three };
 

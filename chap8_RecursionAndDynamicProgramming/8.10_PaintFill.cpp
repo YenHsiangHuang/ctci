@@ -1,6 +1,6 @@
 // LC #733
 #include <vector>
-#include "printer.h"
+#include "printer.hpp"
 
 // Typical DFS
 void floodFill(std::vector<std::vector<int>>& image, int sr, int sc,

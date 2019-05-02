@@ -5,7 +5,7 @@
 #include <climits>
 #include <iostream>
 #include <vector>
-#include "printer.h"
+#include "printer.hpp"
 
 int firstMissingPositive(std::vector<int>& nums) {
     printVec(nums);

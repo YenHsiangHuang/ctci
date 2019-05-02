@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "deckofcards.h"
+#include "deckofcards.hpp"
 using namespace std;
 
 int main(int argc, const char *argv[])

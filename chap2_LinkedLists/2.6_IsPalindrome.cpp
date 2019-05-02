@@ -3,7 +3,7 @@
 #include <iostream>
 #include <stack>
 #include <vector>
-#include "singlylinkedlist.h"
+#include "singlylinkedlist.hpp"
 
 Node* initList(int n = 0) {
     if (n == 0) return nullptr;

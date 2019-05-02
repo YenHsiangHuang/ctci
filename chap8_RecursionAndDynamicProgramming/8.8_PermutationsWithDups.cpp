@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <unordered_set>
 #include <vector>
-#include "printer.h"
+#include "printer.hpp"
 
 #define RUN_CTCI
 #define RUN_LC

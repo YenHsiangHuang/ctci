@@ -2,7 +2,7 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include "printer.h"
+#include "printer.hpp"
 
 /**
    There are two ways to find out a anagram:

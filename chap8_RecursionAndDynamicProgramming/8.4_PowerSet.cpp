@@ -1,7 +1,7 @@
 // LC #78 and #90
 #include <cmath>
 #include <vector>
-#include "printer.h"
+#include "printer.hpp"
 
 // LC #78 values are distinct
 std::vector<std::vector<int>> subsets(std::vector<int>& sets) {

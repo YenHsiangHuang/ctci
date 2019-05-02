@@ -1,7 +1,7 @@
 // LC #22
 #include <string>
 #include <vector>
-#include "printer.h"
+#include "printer.hpp"
 void generateParenthesis(std::vector<std::string>& res, std::string s,
                          int leftRem, int rightRem) {
     if (leftRem == 0 && rightRem == 0) {

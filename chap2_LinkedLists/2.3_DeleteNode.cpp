@@ -2,15 +2,14 @@
 #include <time.h>
 #include <iostream>
 #include <vector>
-#include "singlylinkedlist.h"
+#include "singlylinkedlist.hpp"
 
 Node* initList(int n) {
-    if (n == 0) return nullptr;
     srand(time(NULL));
-    Node* head = new Node(rand() % 100);
+    Node* head = new Node(rand() % 5);
     Node* node = head;
     for (int i = 1; i < n; i++) {
-        node->next = new Node(rand() % 100);
+        node->next = new Node(rand() % 5);
         node = node->next;
     }
 
@@ -18,9 +17,9 @@ Node* initList(int n) {
 }
 
 Node* initList(std::vector<int>& arr) {
-    Node* head = new Node(arr[0]);
+    Node* head = new Node();
     Node* node = head;
-    for (int i = 1; i < arr.size(); i++) {
+    for (int i = 0; i < arr.size(); i++) {
         node->next = new Node(arr[i]);
         node = node->next;
     }
@@ -35,11 +34,16 @@ void printList(Node* head) {
 }
 
 int main() {
-    // std::vector<int> arr = {1, 4, 4, 1, 1, 4, 2, 1, 3, 4};
-    Node* head = initList(20);
+    // std::vector<int> arr = {0, 4, 4, 1, 0, 4, 2, 0, 3, 4};
+    Node* head = initList(10);
     printList(head);
 
-    head = head->partition(head, 50);
+    int k = 4;
+    Node* node = head;
+    for (int i = 0; i < k; i++) {
+        node = node->next;
+    }
+    node->deleteNode(node);
 
     printList(head);
 }
